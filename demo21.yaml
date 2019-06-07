@@ -1,0 +1,70 @@
+# https://docs.microsoft.com/en-us/azure/aks/azure-disks-dynamic-pv
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: azure-managed-disk
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: managed-premium
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: files
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  - host: files.gp.kaluzny.io
+    http:
+      paths:
+      - backend:
+          serviceName: files
+          servicePort: 80
+        path: /
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: files
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+  selector:
+    app: files
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: files
+spec:
+  selector:
+    matchLabels:
+      app: files
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: files
+    spec:
+      containers:
+        - image: nginx
+          name: nginx
+          ports:
+          - containerPort: 80
+            name: http
+            protocol: TCP
+          volumeMounts:
+            - name: demo
+              mountPath: /usr/share/nginx/html
+      volumes:
+      - name: demo
+        persistentVolumeClaim:
+          claimName: azure-managed-disk
