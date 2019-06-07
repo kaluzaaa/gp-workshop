@@ -18,8 +18,8 @@ metadata:
 spec:
   strategy:
     rollingUpdate:
-      maxSurge: 10
-      maxUnavailable: 1
+      maxSurge: 25%
+      maxUnavailable: 50%
     type: RollingUpdate
   selector:
     matchLabels:
@@ -55,4 +55,4 @@ spec:
             failureThreshold: 3
           env:
             - name: Demo
-              value: Demo2
+              value: Demo5

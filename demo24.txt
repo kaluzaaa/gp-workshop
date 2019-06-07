@@ -2,7 +2,7 @@ kubectl get hpa
 kubectl get deployment php-apache
 
 
-kubectl run -i --tty load-generator --image=busybox /bin/sh
+kubectl run -i --tty load-generator-lk --image=busybox /bin/sh
 
 Hit enter for command prompt
 
