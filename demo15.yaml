@@ -10,14 +10,14 @@ spec:
     http:
       paths:
       - backend:
-          serviceName: echo
+          serviceName: echo-v1
           servicePort: 80
         path: /
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: kuard
+  name: echo-v1
 spec:
   type: ClusterIP
   ports:
