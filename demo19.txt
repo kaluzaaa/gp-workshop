@@ -1,0 +1,6 @@
+https://github.com/kaluzaaa/k8s-canary-on-ingress/
+
+kubectl apply -f https://raw.githubusercontent.com/kaluzaaa/k8s-canary-on-ingress/master/web/deployment.yaml
+kubectl apply -f https://raw.githubusercontent.com/kaluzaaa/k8s-canary-on-ingress/master/cat/deployment.yaml
+kubectl apply -f https://raw.githubusercontent.com/kaluzaaa/k8s-canary-on-ingress/master/dog/deployment.yaml
+
