@@ -1,12 +1,16 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: echo
+  name: echo-v1
   annotations:
     kubernetes.io/ingress.class: nginx
 spec:
+  tls:
+  - hosts:
+    - "echo-tls.gp.kaluzny.io"
+    secretName: gp-kaluzny-io
   rules:
-  - host: echo-v1.gp.kaluzny.io
+  - host: echo-tls.gp.kaluzny.io
     http:
       paths:
       - backend:
